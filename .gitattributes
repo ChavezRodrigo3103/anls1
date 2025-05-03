@@ -1,46 +1,84 @@
-# Auto detect text files and perform LF normalization
-* text=auto
-import pandas as pd
-
-# Datos para la Alternativa 1 - PaaS
-paas_tasks = [
-    ["Análisis de requisitos", "Evaluar necesidades de CI/CD, seguridad, monitoreo", "3 días", "Ninguna"],
-    ["Configuración inicial GCP", "Crear proyecto, habilitar servicios (Cloud Build, Artifact Registry, etc.)", "2 días", "Análisis de requisitos"],
-    ["Configurar repositorio y pipelines CI/CD", "Crear GitHub/GitLab repo y configurar pipeline con Cloud Build", "3 días", "Configuración inicial GCP"],
-    ["Implementación de Cloud Run", "Configurar despliegue automático a Cloud Run", "2 días", "Pipeline CI/CD"],
-    ["Gestión de secretos", "Implementar Secret Manager en Cloud Build/Run", "1 día", "Pipeline CI/CD"],
-    ["Configurar monitoreo y alertas", "Stackdriver Logging + Monitoring", "2 días", "Implementación de Cloud Run"],
-    ["Pruebas de pipeline y despliegue", "Validar integración completa", "2 días", "Todas las anteriores"],
-    ["Documentación y entrega", "Documentar infraestructura y procesos", "2 días", "Todas las anteriores"],
-]
-
-# Datos para la Alternativa 2 - IaaS
-iaas_tasks = [
-    ["Análisis de requisitos", "Definir arquitectura y componentes necesarios", "3 días", "Ninguna"],
-    ["Provisionamiento EC2", "Crear instancias y configurar red y seguridad", "2 días", "Análisis de requisitos"],
-    ["Instalación y configuración de Jenkins", "Instalar Jenkins y configurar pipelines", "3 días", "EC2 configurado"],
-    ["Implementación de contenedores", "Crear Dockerfile y scripts de despliegue", "2 días", "Jenkins configurado"],
-    ["Configurar repositorio Git", "Conectar repositorio con Jenkins (webhook o polling)", "1 día", "Jenkins configurado"],
-    ["Gestión de secretos", "Configurar almacenamiento seguro (AWS Secrets Manager)", "1 día", "Jenkins configurado"],
-    ["Configurar monitoreo y logging", "Implementar CloudWatch o alternativa (Prometheus)", "2 días", "EC2 operativo"],
-    ["Pruebas de despliegue y rollback", "Validar CI/CD y recuperación ante fallos", "2 días", "Todas las anteriores"],
-    ["Documentación y entrega", "Documentar infraestructura y procesos", "2 días", "Todas las anteriores"],
-]
-
-# Crear DataFrame
-df = pd.DataFrame(
-    paas_tasks + iaas_tasks,
-    columns=["Resumen", "Descripción", "Duración estimada", "Dependencias"]
-)
-
-# Añadir columna de épica
-df["Épica"] = ["Implementación DevOps – PaaS"] * len(paas_tasks) + ["Implementación DevOps – IaaS"] * len(iaas_tasks)
-
-# Reordenar columnas
-df = df[["Épica", "Resumen", "Descripción", "Duración estimada", "Dependencias"]]
-
-# Exportar a CSV
-csv_path = "/mnt/data/Cronograma_DevOps_NPAW_Jira.csv"
-df.to_csv(csv_path, index=False)
-
-csv_path
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f4f5f7" />
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#172B4D">Roadmap en Jira - Proyecto DRP NPAW</text>
+  
+  <!-- Timeline Header -->
+  <rect x="150" y="50" width="600" height="30" fill="#FFFFFF" stroke="#DFE1E6" stroke-width="1" />
+  <text x="160" y="70" font-family="Arial" font-size="12" fill="#172B4D">Mayo</text>
+  <text x="250" y="70" font-family="Arial" font-size="12" fill="#172B4D">Junio</text>
+  <text x="340" y="70" font-family="Arial" font-size="12" fill="#172B4D">Julio</text>
+  <text x="430" y="70" font-family="Arial" font-size="12" fill="#172B4D">Agosto</text>
+  <text x="520" y="70" font-family="Arial" font-size="12" fill="#172B4D">Septiembre</text>
+  <text x="610" y="70" font-family="Arial" font-size="12" fill="#172B4D">Octubre</text>
+  <text x="700" y="70" font-family="Arial" font-size="12" fill="#172B4D">Noviembre</text>
+  
+  <!-- Vertical Grid Lines -->
+  <line x1="150" y1="50" x2="150" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="240" y1="50" x2="240" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="330" y1="50" x2="330" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="420" y1="50" x2="420" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="510" y1="50" x2="510" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="600" y1="50" x2="600" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="690" y1="50" x2="690" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  <line x1="750" y1="50" x2="750" y2="500" stroke="#DFE1E6" stroke-width="1" />
+  
+  <!-- Initiative Labels -->
+  <text x="125" y="110" font-family="Arial" font-size="14" font-weight="bold" text-anchor="end" fill="#172B4D">DRP-ALT1</text>
+  <text x="125" y="300" font-family="Arial" font-size="14" font-weight="bold" text-anchor="end" fill="#172B4D">DRP-ALT2</text>
+  
+  <!-- Alt 1 Epics -->
+  <!-- Planificación -->
+  <rect x="150" y="90" width="90" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="195" y="110" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Planificación</text>
+  
+  <!-- Infraestructura -->
+  <rect x="210" y="130" width="160" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="290" y="150" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Infraestructura Virtualizada</text>
+  
+  <!-- Pruebas -->
+  <rect x="330" y="170" width="140" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="400" y="190" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Pruebas y Validación</text>
+  
+  <!-- Migración Cloud -->
+  <rect x="420" y="130" width="180" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="510" y="150" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Migración a Cloud</text>
+  
+  <!-- BD y Software -->
+  <rect x="450" y="90" width="160" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="530" y="110" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">BD y Software</text>
+  
+  <!-- Seguridad -->
+  <rect x="550" y="170" width="140" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="620" y="190" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Seguridad</text>
+  
+  <!-- Formación -->
+  <rect x="500" y="210" width="160" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="580" y="230" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Formación y Docs</text>
+  
+  <!-- Go-Live -->
+  <rect x="650" y="130" width="90" height="30" rx="4" fill="#E6FCFF" stroke="#00B8D9" stroke-width="1" />
+  <text x="695" y="150" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Go-Live</text>
+  
+  <!-- Alt 2 Epics -->
+  <!-- Evaluación -->
+  <rect x="150" y="280" width="130" height="30" rx="4" fill="#FFE2D9" stroke="#FF5630" stroke-width="1" />
+  <text x="215" y="300" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Evaluación</text>
+  
+  <!-- Selección Proveedores -->
+  <rect x="230" y="320" width="130" height="30" rx="4" fill="#FFE2D9" stroke="#FF5630" stroke-width="1" />
+  <text x="295" y="340" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Selección Proveedores</text>
+  
+  <!-- Implementación -->
+  <rect x="320" y="360" width="160" height="30" rx="4" fill="#FFE2D9" stroke="#FF5630" stroke-width="1" />
+  <text x="400" y="380" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Implementación Inicial</text>
+  
+  <!-- Migración Datos -->
+  <rect x="390" y="280" width="190" height="30" rx="4" fill="#FFE2D9" stroke="#FF5630" stroke-width="1" />
+  <text x="485" y="300" font-family="Arial" font-size="11" text-anchor="middle" fill="#172B4D">Migración de Datos</text>
+  
+  <!-- Integración -->
+  <rect x="430" y="320" width="210" height="
