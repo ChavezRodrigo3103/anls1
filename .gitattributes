@@ -1,2 +1,46 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+import pandas as pd
+
+# Datos para la Alternativa 1 - PaaS
+paas_tasks = [
+    ["Análisis de requisitos", "Evaluar necesidades de CI/CD, seguridad, monitoreo", "3 días", "Ninguna"],
+    ["Configuración inicial GCP", "Crear proyecto, habilitar servicios (Cloud Build, Artifact Registry, etc.)", "2 días", "Análisis de requisitos"],
+    ["Configurar repositorio y pipelines CI/CD", "Crear GitHub/GitLab repo y configurar pipeline con Cloud Build", "3 días", "Configuración inicial GCP"],
+    ["Implementación de Cloud Run", "Configurar despliegue automático a Cloud Run", "2 días", "Pipeline CI/CD"],
+    ["Gestión de secretos", "Implementar Secret Manager en Cloud Build/Run", "1 día", "Pipeline CI/CD"],
+    ["Configurar monitoreo y alertas", "Stackdriver Logging + Monitoring", "2 días", "Implementación de Cloud Run"],
+    ["Pruebas de pipeline y despliegue", "Validar integración completa", "2 días", "Todas las anteriores"],
+    ["Documentación y entrega", "Documentar infraestructura y procesos", "2 días", "Todas las anteriores"],
+]
+
+# Datos para la Alternativa 2 - IaaS
+iaas_tasks = [
+    ["Análisis de requisitos", "Definir arquitectura y componentes necesarios", "3 días", "Ninguna"],
+    ["Provisionamiento EC2", "Crear instancias y configurar red y seguridad", "2 días", "Análisis de requisitos"],
+    ["Instalación y configuración de Jenkins", "Instalar Jenkins y configurar pipelines", "3 días", "EC2 configurado"],
+    ["Implementación de contenedores", "Crear Dockerfile y scripts de despliegue", "2 días", "Jenkins configurado"],
+    ["Configurar repositorio Git", "Conectar repositorio con Jenkins (webhook o polling)", "1 día", "Jenkins configurado"],
+    ["Gestión de secretos", "Configurar almacenamiento seguro (AWS Secrets Manager)", "1 día", "Jenkins configurado"],
+    ["Configurar monitoreo y logging", "Implementar CloudWatch o alternativa (Prometheus)", "2 días", "EC2 operativo"],
+    ["Pruebas de despliegue y rollback", "Validar CI/CD y recuperación ante fallos", "2 días", "Todas las anteriores"],
+    ["Documentación y entrega", "Documentar infraestructura y procesos", "2 días", "Todas las anteriores"],
+]
+
+# Crear DataFrame
+df = pd.DataFrame(
+    paas_tasks + iaas_tasks,
+    columns=["Resumen", "Descripción", "Duración estimada", "Dependencias"]
+)
+
+# Añadir columna de épica
+df["Épica"] = ["Implementación DevOps – PaaS"] * len(paas_tasks) + ["Implementación DevOps – IaaS"] * len(iaas_tasks)
+
+# Reordenar columnas
+df = df[["Épica", "Resumen", "Descripción", "Duración estimada", "Dependencias"]]
+
+# Exportar a CSV
+csv_path = "/mnt/data/Cronograma_DevOps_NPAW_Jira.csv"
+df.to_csv(csv_path, index=False)
+
+csv_path
